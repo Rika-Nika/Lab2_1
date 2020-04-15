@@ -43,7 +43,7 @@ void testDinArrGetSize() {
 void testDinArrCreateFromArray() {
 	const int SIZE = 5;
 	bool res = true;
-	int testArr[SIZE] = { 11, 112, 23, 153, 122222};
+	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
 	try {
 		DynamicArray<int>* da = new DynamicArray<int>(testArr, SIZE);
 		for (int i = 0; i < SIZE; i++) {
@@ -211,7 +211,7 @@ void testArraySequenceGetLast() {
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testArraySequenceGetLast failed\nException: " << exception.what()<<"\n";
+		std::cout << "testArraySequenceGetLast failed\nException: " << exception.what() << "\n";
 	}
 }
 void testArraySequencePrepend() {
@@ -220,7 +220,7 @@ void testArraySequencePrepend() {
 	const int END = 4;
 	bool res = true;
 	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
-	int testArr2[SIZE+1] = { 11, 112, 23, 153, 122222, 777 };
+	int testArr2[SIZE + 1] = { 11, 112, 23, 153, 122222, 777 };
 	try {
 		Sequence<int>* seq = new ArraySequence <int>(testArr, SIZE);
 		seq->Prepend(777);
@@ -268,8 +268,8 @@ void testArraySequenceInsertAt() {
 	const int SIZE = 5;
 	const int INDEX = 2;
 	bool res = true;
-	int testArr[SIZE] = {11, 112, 23, 153, 122222};
-	int testArr2[SIZE + 1] = {11, 112, 777, 23, 153, 122222};
+	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
+	int testArr2[SIZE + 1] = { 11, 112, 777, 23, 153, 122222 };
 	try {
 		Sequence<int>* seq = new ArraySequence <int>(testArr, SIZE);
 		seq->InsertAt(INDEX, 777);
@@ -340,14 +340,14 @@ void testArraySequenceRemoveAll() {
 	bool res = true;
 	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
 	Sequence<int>* seq = new ArraySequence <int>(testArr, SIZE);
-		seq->RemoveAll();
+	seq->RemoveAll();
 
-		if (seq->GetLength() == 0) {
-			std::cout << "testArraySequenceRemoveAll passed\n";
-		}
-		else {
-			std::cout << "testArraySequenceRemoveAll failed\n";
-		}
+	if (seq->GetLength() == 0) {
+		std::cout << "testArraySequenceRemoveAll passed\n";
+	}
+	else {
+		std::cout << "testArraySequenceRemoveAll failed\n";
+	}
 }
 
 void testArraySequenceConcat() {
@@ -356,13 +356,13 @@ void testArraySequenceConcat() {
 	bool res = true;
 	int testArr1[SIZE1] = { 11, 112, 23, 153, 122222 };
 	int testArr2[SIZE2] = { 77, 177, 723, 7153, 7122222, 456 };
-	int testArr3[SIZE1 + SIZE2] = { 11, 112, 23, 153, 122222, 77, 177, 723, 7153, 7122222, 456};
+	int testArr3[SIZE1 + SIZE2] = { 11, 112, 23, 153, 122222, 77, 177, 723, 7153, 7122222, 456 };
 	Sequence<int>* seq1 = new ArraySequence <int>(testArr1, SIZE1);
 	Sequence<int>* seq2 = new ArraySequence <int>(testArr2, SIZE2);
 	Sequence<int>* seq3 = seq1->Concat(seq2);
-	seq1->PrintArray();
-	seq2->PrintArray();
-	seq3->PrintArray();
+//	seq1->PrintArray();
+//	seq2->PrintArray();
+//	seq3->PrintArray();
 	if (seq3->GetLength() == SIZE1 + SIZE2) {
 		for (int i = 0; i < SIZE1 + SIZE2; i++) {
 			res = res && seq3->Get(i) == testArr3[i];
@@ -383,7 +383,7 @@ void testArraySequenceGetSubsequence() {
 	try {
 		Sequence<int>* seq = new ArraySequence <int>(testArr, SIZE);
 		Sequence<int>* subSeq = seq->GetSubsequence(START, END);
-		for (int i = 0; i < END - START+1 ; i++) {
+		for (int i = 0; i < END - START + 1; i++) {
 			res = res && (subSeq->Get(i) == testArr[i + START]);
 		}
 		if (res) {
@@ -394,10 +394,9 @@ void testArraySequenceGetSubsequence() {
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testArraySequenceGetSubsequence failed\nException: " << exception.what()<<"\n";
+		std::cout << "testArraySequenceGetSubsequence failed\nException: " << exception.what() << "\n";
 	}
 }
-
 
 void testArraySequence() {
 	std::cout << "________________ Start testing ArraySequence _______________\n";
@@ -420,7 +419,7 @@ void testLinkedListCreate() {
 	LinkedList<std::string>* ls = new LinkedList<std::string>();
 	int n = 5;
 	for (int i = 0; i < n; i++) {
-		ls->add_node(std::to_string(i+1.1)+ " aaaaaaaaaaaaA");
+		ls->add_node(std::to_string(i + 1.1) + " aaaaaaaaaaaaA");
 	}
 	ls->printList();
 };
@@ -439,6 +438,16 @@ void testLinkedListGetFirst() {
 	else {
 		std::cout << "testLinkedListGetFirst failed\n";
 	}
+	LinkedList <int>* empty = new LinkedList <int>();
+	try
+	{
+		int f = empty->GetFirst();
+		std::cout << "testLinkedListGetFirst Exeption failed\n";
+	}
+	catch (Exception& exception)
+	{
+		std::cout << "testLinkedListGetFirst Exeption passed\n";
+	};
 };
 
 void testLinkedListGetLast() {
@@ -455,6 +464,16 @@ void testLinkedListGetLast() {
 	else {
 		std::cout << "testLinkedListGetLast failed\n";
 	}
+	LinkedList <int>* empty = new LinkedList <int>();
+	try
+	{
+		int l = empty->GetLast();
+		std::cout << "testLinkedListGetLast Exeption failed\n";
+	}
+	catch (Exception& exception)
+	{
+		std::cout << "testLinkedListGetLast Exeption passed\n";
+	};
 };
 
 void testLinkedListGetSize() {
@@ -481,28 +500,84 @@ void testLinkedListGetNth()
 		Nth->add_node(i);
 	}
 	int a = Nth->GetNth(10);
-	if (a == 9) {
+	if (a == 10) {
 		std::cout << "testLinkedListGetNth passed\n";
 	}
 	else {
 		std::cout << "testLinkedListGetNth failed\n";
 	}
+	LinkedList <int>* empty = new LinkedList <int>();
+	try
+	{
+		int a = empty->GetNth(10);
+		std::cout << "testLinkedListGetNth Exeption failed\n";
+	}
+	catch (Exception& exception)
+	{
+		std::cout << "testLinkedListGetNth Exeption passed\n";
+	};
 
 };
 
+void testLinkedListAppend()
+{
+	const int SIZE = 7;
+	bool res = true;
+	int testArr[SIZE] = { 100, -100, 0, 1, 2, 3, 4};
+	LinkedList <int>* ls = new LinkedList <int>();
+	ls->Append(-100);
+	int n = 5;
+	for (int i = 0; i < n; i++) {
+		ls->add_node(i);
+	}
+	ls->Append(100);
+	for (int i = 0; i < SIZE; i++) {
+		res = res && ls->EqualsItem(testArr[i], ls->GetNth(i));
+	}
+	if (res) {
+		std::cout << "testLinkedListAppend passed\n";
+	}
+	else {
+		std::cout << "testLinkedListAppend failed\n";
+	}
+};
+
+void testLinkedListPrepend()
+{
+
+	const int SIZE = 7;
+	bool res = true;
+	int testArr[SIZE] = { -100, 0, 1, 2, 3, 4, 100 };
+	LinkedList <int>* ls = new LinkedList <int>();
+	ls->Prepend(-100);
+	int n = 5;
+	for (int i = 0; i < n; i++) {
+		ls->add_node(i);
+	}
+	ls->Prepend(100);
+	//ls->printList();
+	for (int i = 0; i < SIZE; i++) {
+		res = res && ls->EqualsItem(testArr[i], ls->GetNth(i));
+	}
+	if (res) {
+		std::cout << "testLinkedListPrepend passed\n";
+	}
+	else {
+		std::cout << "testLinkedListPrepend failed\n";
+	}
+};
 
 void testLinkedList() {
-	std::cout << "________________ Start testing testLinkedList _______________\n";
+	std::cout << "________________ Start testing testLinkedList ______________\n";
 	testLinkedListCreate();
 	testLinkedListGetFirst();
 	testLinkedListGetLast();
 	testLinkedListGetSize();
 	testLinkedListGetNth();
-	std::cout << "________________ End testing testLinkedList _________________\n";
+	testLinkedListAppend();
+	testLinkedListPrepend();
+	std::cout << "________________ End testing testLinkedList ________________\n";
 }
-
-
-
 
 int main()
 {

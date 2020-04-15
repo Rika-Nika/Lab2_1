@@ -23,10 +23,10 @@ public:
 		size = 0;
 	}
 
-	void add_node(T n)
+	void add_node(T value)
 	{
 		node* tmp = new node;
-		tmp->data = n;
+		tmp->data = value;
 		tmp->next = NULL;
 
 		if (head == NULL)
@@ -81,8 +81,15 @@ public:
 	}
 
 
-	bool Equals(int data) {
-		return true;
+	 bool EqualsItem(int value1, int value2) {
+		return value1 == value2;
+	}
+	 bool EqualsItem(std::string value1, std::string value2) {
+		return value1 == value2;
+	}
+
+	 bool EqualsItem(double value1, double value2) {
+		return value1 == value2;
 	}
 
 	void concatenate(node* a, node* b)
@@ -103,12 +110,12 @@ public:
 	//index>0>getsize
 
 
-	int GetNth (int index)
+	int GetNth(int index)
 	{
-		if (index < 0 && index >size - 1)
+		if (index < 0 || index >size - 1)
 		{
 			throw Exception("IndexOutOfRange");
-	}
+		}
 		node* current = head;
 		int count = 0;
 		while (current != NULL)
@@ -118,10 +125,10 @@ public:
 			count++;
 			current = current->next;
 		}
-		assert(0);
+		//	assert(0);
 	}
 
-	
+
 
 	T GetFirst()
 	{
@@ -135,12 +142,39 @@ public:
 	}
 
 	T GetLast()
-	{ if (size == 0)
+	{
+		if (size == 0)
 		{
 			throw Exception("IndexOutOfRange");
 		}
 
 		return this->tail->data;
 
+	}
+
+	T GetSize()
+	{
+
+		return size;
+	}
+
+	void Append(T value)
+	{
+		if (head == NULL)
+		{
+			add_node(value);
+		}
+		else
+		{
+			node* tmp = new node;
+			tmp->data = value;
+			tmp->next = head;
+			head = tmp;
+		}
+		size++;
+	}
+	void Prepend(T value)
+	{
+		add_node(value);
 	}
 };
