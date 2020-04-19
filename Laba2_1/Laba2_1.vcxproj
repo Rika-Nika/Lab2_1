@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Laba2_1.cpp" />
+    <ClCompile Include="Stack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArraySequence.hpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="Exception.h" />
     <ClInclude Include="LinkedList.hpp" />
     <ClInclude Include="Sequence.hpp" />
+    <ClInclude Include="Stack.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -23,6 +23,42 @@ public:
 		size = 0;
 	}
 
+	//Копировать элементы из переданного массива
+
+	LinkedList(T* items, int count)
+	{
+		head = NULL;
+		tail = NULL;
+		size = 0;
+		for (int i = 0; i < count; i++)
+		{
+			if (NULL == *(items + i)) {
+				
+			}
+			this->add_node(*(items + i));
+		}
+	};
+
+	//Копирующий конструктор
+
+	LinkedList(const LinkedList<T>& list) {
+		head = NULL;
+		tail = NULL;
+		size = 0;
+		node* current = list.head;
+		int count = 0;
+			while (current != NULL)
+			{
+				add_node(current->data);
+				count++;
+				current = current->next;
+
+			}
+		
+		
+	};
+
+
 	void add_node(T value)
 	{
 		node* tmp = new node;
@@ -43,9 +79,14 @@ public:
 
 	}
 
-	node* gethead()
+	node* GetHead()
 	{
 		return head;
+	}
+
+	node* GetTail()
+	{
+		return tail;
 	}
 
 	/*static void display(LinkedList :: head )
@@ -81,14 +122,14 @@ public:
 	}
 
 
-	 bool EqualsItem(int value1, int value2) {
+	bool EqualsItem(int value1, int value2) {
 		return value1 == value2;
 	}
-	 bool EqualsItem(std::string value1, std::string value2) {
+	bool EqualsItem(std::string value1, std::string value2) {
 		return value1 == value2;
 	}
 
-	 bool EqualsItem(double value1, double value2) {
+	bool EqualsItem(double value1, double value2) {
 		return value1 == value2;
 	}
 
@@ -110,7 +151,7 @@ public:
 	//index>0>getsize
 
 
-	int GetNth(int index)
+	T GetNth(int index)
 	{
 		if (index < 0 || index >size - 1)
 		{
@@ -154,7 +195,6 @@ public:
 
 	T GetSize()
 	{
-
 		return size;
 	}
 
@@ -176,5 +216,105 @@ public:
 	void Prepend(T value)
 	{
 		add_node(value);
+	}
+
+
+	void InsertAt(T value, int index)
+	{
+		if (index < 0 || index >size - 1)
+		{
+			throw Exception("IndexOutOfRange");
+		}
+		node* current = head;
+		node* valueNode = new node;
+		node* tmp = NULL;
+		valueNode->data = value;
+		int count = 0;
+		while (current != NULL)
+		{
+			if (count == index - 1) {
+				tmp = current;
+			}
+			if (count == index) {
+				tmp->next = valueNode;
+				valueNode->next = current;
+				this->size++;
+				break;
+			}
+			count++;
+			current = current->next;
+		}
+	}
+
+	LinkedList<T>* Concat(LinkedList<T>* list)
+	{
+
+		if (head == NULL)
+		{
+			head = list->GetHead();
+		}
+		else
+		{
+			tail->next = list->GetHead();
+
+		}
+
+		tail = list->GetTail();
+		size += list->GetSize();
+		return this;
+	}
+
+	LinkedList<T>* GetSubList(int startIndex, int endIndex)
+	{
+		node* current = head;
+		int count = 0;
+
+		LinkedList <T>* ls = new LinkedList <T>();
+		if (startIndex < 0 || endIndex > size - 1 || endIndex < 0 || startIndex > endIndex)
+		{
+			throw Exception("IndexOutOfRange");
+		}
+		else {
+			node* current = head;
+			int count = 0;
+			while (current != NULL)
+			{
+				if (count >= startIndex && count <= endIndex)
+					ls->add_node(current->data);
+				if (count == endIndex)
+				{
+					break;
+				}
+				count++;
+				current = current->next;
+
+			}
+		}
+		return ls;
+	}
+	bool Equals(LinkedList ls)
+	{
+		node* current = head;
+		node* currentls = ls.GetHead();
+		int count = 0;
+		if (this->GetSize() != ls.GetSize())
+		{
+			return false;
+		}
+		else {
+			node* current = head;
+			int count = 0;
+			while (current != NULL)
+			{
+				if (current->data != currentls->data)
+				{
+					return false;
+				}
+				count++;
+				current = current->next;
+				currentls = currentls->next;
+			}
+		}
+		return true;
 	}
 };

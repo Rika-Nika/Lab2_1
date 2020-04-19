@@ -360,9 +360,9 @@ void testArraySequenceConcat() {
 	Sequence<int>* seq1 = new ArraySequence <int>(testArr1, SIZE1);
 	Sequence<int>* seq2 = new ArraySequence <int>(testArr2, SIZE2);
 	Sequence<int>* seq3 = seq1->Concat(seq2);
-//	seq1->PrintArray();
-//	seq2->PrintArray();
-//	seq3->PrintArray();
+	//	seq1->PrintArray();
+	//	seq2->PrintArray();
+	//	seq3->PrintArray();
 	if (seq3->GetLength() == SIZE1 + SIZE2) {
 		for (int i = 0; i < SIZE1 + SIZE2; i++) {
 			res = res && seq3->Get(i) == testArr3[i];
@@ -450,6 +450,25 @@ void testLinkedListGetFirst() {
 	};
 };
 
+void testLinkedListCopy() {
+	const int SIZE = 5;
+	bool res = true;
+	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
+	try {
+		LinkedList<int>* ls = new LinkedList<int>(testArr, SIZE);
+		LinkedList<int>* ls2 = new LinkedList<int>(*ls);
+		if (ls->Equals(*ls2)) {
+			std::cout << "testLinkedListCopy passed\n";
+		}
+		else {
+			std::cout << "testLinkedListCopy failed\n";
+		}
+	}
+	catch (Exception& exception) {
+		std::cout << "testLinkedListCopy failed\nException: " << exception.what() << "\n";
+	}
+}
+
 void testLinkedListGetLast() {
 
 	LinkedList <int>* last = new LinkedList <int>();
@@ -523,7 +542,7 @@ void testLinkedListAppend()
 {
 	const int SIZE = 7;
 	bool res = true;
-	int testArr[SIZE] = { 100, -100, 0, 1, 2, 3, 4};
+	int testArr[SIZE] = { 100, -100, 0, 1, 2, 3, 4 };
 	LinkedList <int>* ls = new LinkedList <int>();
 	ls->Append(-100);
 	int n = 5;
@@ -567,6 +586,127 @@ void testLinkedListPrepend()
 	}
 };
 
+void testLinkedListInsertAt()
+{
+
+	const int SIZE = 6;
+	bool res = true;
+	int testArr[SIZE] = { 0, 1, 2, 100, 3, 4 };
+	LinkedList <int>* ls = new LinkedList <int>();
+	int n = 5;
+	for (int i = 0; i < n; i++) {
+		ls->add_node(i);
+	}
+	ls->InsertAt(100, 3);
+	//ls->printList();
+	for (int i = 0; i < SIZE; i++) {
+		res = res && ls->EqualsItem(testArr[i], ls->GetNth(i));
+	}
+	if (res) {
+		std::cout << "testLinkedListInsertAt passed\n";
+	}
+	else {
+		std::cout << "testLinkedListInsertAt failed\n";
+	}
+	try {
+		ls->InsertAt(100, 100);
+		std::cout << "testLinkedListInsertAt Exeption failed\n";
+	}
+	catch (Exception& exception)
+	{
+		std::cout << "testLinkedListInsertAt Exeption passed\n";
+	}
+};
+
+
+void testLinkedListGetSubList()
+{
+	const int SIZE = 4;
+	bool res = true;
+	int testArr[SIZE] = {2, 3, 4, 5 };
+	LinkedList <int>* ls = new LinkedList <int>();
+	LinkedList <int>* ls2=NULL;
+	for (int i = 0; i < SIZE+12; i++) {
+		ls->add_node(i);
+	}
+	//ls->printList();
+ 	ls2 = ls->GetSubList(2, 5);
+	//ls2->printList();
+	for (int i = 0; i < 1; i++) {
+		res = res && ls2->EqualsItem(testArr[i], ls2->GetNth(i));
+	}
+	if (res) {
+		std::cout << "testLinkedListGetSubList passed\n";
+	}
+	else {
+		std::cout << "testLinkedListGetSubList failed\n";
+	}
+	try {
+		ls->GetSubList(-1,5);
+		std::cout << "testLinkedListGetSubList Exeption failed\n";
+	}
+	catch (Exception& exception)
+	{
+		std::cout << "testLinkedListGetSubList Exeption passed\n";
+	}
+
+}
+
+void testLinkedListConcat()
+{
+	const int SIZE1 = 4;
+	const int SIZE2 = 5;
+	const int SIZE3 = 9;
+	bool res = true;
+	int testArr1[SIZE1] = { 0, 1, 2, 3  };
+	int testArr2[SIZE2] = { 4, 5, 6, 7, 8 };
+	int testArr3[SIZE3] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+	LinkedList <int>* ls1 = new LinkedList <int>();
+	LinkedList <int>* ls2 = new LinkedList <int>();
+	LinkedList <int>* ls3;
+	
+	for (int i = 0; i < SIZE1; i++) {
+		ls1->add_node(i);
+	}
+	//ls1->printList();
+	for (int i = SIZE1; i < SIZE1 + SIZE2; i++) {
+		ls2->add_node(i);
+	}
+	//ls2->printList();
+	ls3 = ls1->Concat(ls2);
+	//ls3->printList();
+	for (int i = 0; i < SIZE3; i++) {
+		res = res && ls3->EqualsItem(testArr3[i], ls3->GetNth(i));
+	}
+	if (res) {
+		std::cout << "testLinkedListConcat passed\n";
+	}
+	else {
+		std::cout << "testLinkedListConcat failed\n";
+	}
+};
+
+
+void testLinkedListCreateFromArray() {
+	const int SIZE = 5;
+	bool res = true;
+	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
+	try {
+		LinkedList<int>* da = new LinkedList<int>(testArr, SIZE);
+		for (int i = 0; i < SIZE; i++) {
+			res = res && (testArr[i] == da->GetNth(i));
+		}
+		if (res) {
+			std::cout << "testLinkedListCreateFromArray passed\n";
+		}
+		else {
+			std::cout << "testLinkedListCreateFromArray failed\n";
+		}
+	}
+	catch (Exception& exception) {
+		std::cout << "testLinkedListCreateFromArray failed\nException: " << exception.what() << "\n";
+	}
+}
 void testLinkedList() {
 	std::cout << "________________ Start testing testLinkedList ______________\n";
 	testLinkedListCreate();
@@ -576,6 +716,12 @@ void testLinkedList() {
 	testLinkedListGetNth();
 	testLinkedListAppend();
 	testLinkedListPrepend();
+	testLinkedListInsertAt();
+	testLinkedListConcat();
+	testLinkedListGetSubList();
+	testLinkedListCopy();
+	testLinkedListCreateFromArray();
+
 	std::cout << "________________ End testing testLinkedList ________________\n";
 }
 
