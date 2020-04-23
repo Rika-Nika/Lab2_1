@@ -317,4 +317,65 @@ public:
 		}
 		return true;
 	}
+
+	node* GetNext() {
+		return node.next;
+
+	}
+	void RemoveAll()
+	{
+		head = NULL;
+		tail = NULL;
+		size = 0;
+	}
+	// Удаляет первое вхождение value
+	void Remove(T value, int index)
+	{
+		if (index < 0 || index >size - 1)
+		{
+			throw Exception("IndexOutOfRange");
+		}
+		node* current = head;
+		node* valueNode = new node;
+		node* tmp = NULL;
+		valueNode->data = value;
+		int count = 0;
+		while (current != NULL)
+		{
+			if (count == index - 1) {
+				tmp = current;
+			}
+			if (count == index) {
+				tmp->next = valueNode;
+				valueNode->next = current;
+				this->size++;
+				break;
+			}
+			count++;
+			current = current->next;
+		}
+	}
+	void RemoveAt(const int index) {
+		if (index < 0 || index >size - 1)
+		{
+			throw Exception("IndexOutOfRange");
+		}
+		node* current = head;
+		node* tmp = NULL;
+		int count = 0;
+		while (current != NULL)
+		{
+			if (count == index - 1) {
+				tmp = current;
+			}
+			if (count == index+1) {
+				tmp->next = current;
+				
+				this->size--;
+				break;
+			}
+			count++;
+			current = current->next;
+		}
+	};
 };

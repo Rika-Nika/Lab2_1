@@ -155,6 +155,7 @@
     <ClInclude Include="DynamicArray.hpp" />
     <ClInclude Include="Exception.h" />
     <ClInclude Include="LinkedList.hpp" />
+    <ClInclude Include="LinkedListSequence.hpp" />
     <ClInclude Include="Sequence.hpp" />
     <ClInclude Include="Stack.hpp" />
   </ItemGroup>

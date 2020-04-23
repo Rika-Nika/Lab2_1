@@ -77,7 +77,7 @@ public:
 		}
 		return subSeq;
 	};
-	void PrintArray() const override {
+	void Print() const override {
 		int size = this->GetLength();
 		this->items->PrintArray(size);
 	}

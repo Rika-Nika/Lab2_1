@@ -9,7 +9,7 @@ public:
 	virtual T GetLast() const = 0;
 	virtual T Get(const int i) const = 0;
 	virtual Sequence<T>* GetSubsequence(const int start, const int end) const = 0;
-	virtual void PrintArray() const = 0;
+	virtual void Print() const = 0;
 	virtual bool Equals(const Sequence<T>& sequence) const = 0;
 public:
 	virtual void Append(T value) = 0;
