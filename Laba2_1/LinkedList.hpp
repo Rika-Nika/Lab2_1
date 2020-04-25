@@ -33,7 +33,7 @@ public:
 		for (int i = 0; i < count; i++)
 		{
 			if (NULL == *(items + i)) {
-				
+
 			}
 			this->add_node(*(items + i));
 		}
@@ -47,15 +47,15 @@ public:
 		size = 0;
 		node* current = list.head;
 		int count = 0;
-			while (current != NULL)
-			{
-				add_node(current->data);
-				count++;
-				current = current->next;
+		while (current != NULL)
+		{
+			add_node(current->data);
+			count++;
+			current = current->next;
 
-			}
-		
-		
+		}
+
+
 	};
 
 
@@ -329,28 +329,24 @@ public:
 		size = 0;
 	}
 	// Удаляет первое вхождение value
-	void Remove(T value, int index)
+	void Remove(T value)
 	{
-		if (index < 0 || index >size - 1)
-		{
-			throw Exception("IndexOutOfRange");
-		}
 		node* current = head;
-		node* valueNode = new node;
-		node* tmp = NULL;
-		valueNode->data = value;
+		node* tmp = head;
 		int count = 0;
+		if(value == this->GetFirst()) {
+			RemoveAt(0);
+			return;
+		}
 		while (current != NULL)
 		{
-			if (count == index - 1) {
-				tmp = current;
-			}
-			if (count == index) {
-				tmp->next = valueNode;
-				valueNode->next = current;
-				this->size++;
+		
+			if (current->data == value) {
+				tmp->next = current->next;
+				this->size--;
 				break;
 			}
+			tmp = current;
 			count++;
 			current = current->next;
 		}
@@ -368,9 +364,9 @@ public:
 			if (count == index - 1) {
 				tmp = current;
 			}
-			if (count == index+1) {
+			if (count == index + 1) {
 				tmp->next = current;
-				
+
 				this->size--;
 				break;
 			}

@@ -146,10 +146,11 @@ void testArraySequenceCreateFromArray() {
 }
 
 void testArraySequenceGetLength() {
-	int const SIZE = 5;
-	Sequence<int>* seq = new ArraySequence<int>(SIZE);
+	const int SIZE = 5;
+	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
+	Sequence<int>* seq = new ArraySequence<int>(testArr,SIZE);
 	int v = seq->GetLength();
-	if (v == 0) {
+	if (v == 5) {
 		std::cout << "testArraySequenceGetLength passed\n";
 	}
 	else {
@@ -400,6 +401,32 @@ void testArraySequenceGetSubsequence() {
 	}
 }
 
+
+
+void testArraySequenceCopy() {
+	const int SIZE = 5;
+	const int START = 2;
+	const int END = 4;
+	bool res = true;
+	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
+	try {
+		ArraySequence<int>* seq = new ArraySequence <int>(testArr, SIZE);
+		Sequence<int>* seq2 = new ArraySequence <int>(*seq);
+		for (int i = 0; i < END - START + 1; i++) {
+			res = res && (seq->Get(i) == testArr[i + START]);
+		}
+		if (res) {
+			std::cout << "testArraySequenceCopy passed\n";
+		}
+		else {
+			std::cout << "testArraySequenceCopy failed\n";
+		}
+	}
+	catch (Exception& exception) {
+		std::cout << "testArraySequenceCopy failed\nException: " << exception.what() << "\n";
+	}
+}
+
 void testArraySequence() {
 	std::cout << "________________ Start testing ArraySequence _______________\n";
 	testArraySequenceGetLength();
@@ -415,6 +442,7 @@ void testArraySequence() {
 	testArraySequenceRemove();
 	testArraySequenceRemoveAll();
 	testArraySequenceConcat();
+	testArraySequenceCopy();
 	std::cout << "________________ End testing ArraySequence _________________\n";
 }
 void testLinkedListCreate() {
@@ -709,29 +737,68 @@ void testLinkedListCreateFromArray() {
 		std::cout << "testLinkedListCreateFromArray failed\nException: " << exception.what() << "\n";
 	}
 }
-	void testLinkedListRemoveAt() {
-		const int SIZE = 5;
-		const int INDEX = 2;
-		bool res = true;
-		int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
-		int testArr2[SIZE - 1] = { 11, 112, 153, 122222 };
-		try {
-			LinkedList<int>* seq = new LinkedList <int>(testArr, SIZE);
-			seq->RemoveAt(INDEX);
-			for (int i = 0; i < seq->GetSize(); i++) {
-				res = res && (seq->GetNth(i) == testArr2[i]);
-			}
-			if (res) {
-				std::cout << "testLinkedListRemoveAt passed\n";
-			}
-			else {
-				std::cout << "testLinkedListRemoveAt failed\n";
-			}
+void testLinkedListRemoveAt() {
+	const int SIZE = 5;
+	const int INDEX = 2;
+	bool res = true;
+	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
+	int testArr2[SIZE - 1] = { 11, 112, 153, 122222 };
+	try {
+		LinkedList<int>* seq = new LinkedList <int>(testArr, SIZE);
+		seq->RemoveAt(INDEX);
+		for (int i = 0; i < seq->GetSize(); i++) {
+			res = res && (seq->GetNth(i) == testArr2[i]);
 		}
-		catch (Exception& exception) {
-			std::cout << "testLinkedListRemoveAt failed\nException: " << exception.what() << "\n";
+		if (res) {
+			std::cout << "testLinkedListRemoveAt passed\n";
+		}
+		else {
+			std::cout << "testLinkedListRemoveAt failed\n";
 		}
 	}
+	catch (Exception& exception) {
+		std::cout << "testLinkedListRemoveAt failed\nException: " << exception.what() << "\n";
+	}
+}
+
+void testLinkedListRemoveAll() {
+	const int SIZE = 5;
+	bool res = true;
+	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
+	LinkedList<int>* seq = new LinkedList <int>(testArr, SIZE);
+	seq->RemoveAll();
+
+	if (seq->GetSize() == 0) {
+		std::cout << "testLinkedListRemoveAll passed\n";
+	}
+	else {
+		std::cout << "testLinkedListRemoveAll failed\n";
+	}
+}
+
+void testLinkedListRemove() {
+	const int SIZE = 5;
+	const int item = 23;
+	bool res = true;
+	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
+	int testArr2[SIZE - 1] = { 11, 112, 153, 122222 };
+	try {
+		LinkedList<int>* seq = new LinkedList <int>(testArr, SIZE);
+		seq->Remove(item);
+		for (int i = 0; i < seq->GetSize(); i++) {
+			res = res && (seq->GetNth(i) == testArr2[i]);
+		}
+		if (res) {
+			std::cout << "testLinkedListRemove passed\n";
+		}
+		else {
+			std::cout << "testLinkedListRemove failed\n";
+		}
+	}
+	catch (Exception& exception) {
+		std::cout << "testLinkedListRemove failed\nException: " << exception.what() << "\n";
+	}
+}
 
 void testLinkedList() {
 	std::cout << "________________ Start testing testLinkedList ______________\n";
@@ -748,6 +815,8 @@ void testLinkedList() {
 	testLinkedListCopy();
 	testLinkedListCreateFromArray();
 	testLinkedListRemoveAt();
+	testLinkedListRemoveAll();
+	testLinkedListRemove();
 
 	std::cout << "________________ End testing testLinkedList ________________\n";
 }
@@ -993,39 +1062,104 @@ void testLinkedListSequenceRemoveAt() {
 		std::cout << "testLinkedListSequenceRemoveAt failed\nException: " << exception.what() << "\n";
 	}
 }
-	void testLinkedListSequence(){
-		std::cout << "________________ Start testing LinkedListSequence _______________\n";
-		testLinkedListSequenceGetLength();
-		testLinkedListSequenceCreateFromArray();
-		testLinkedListSequenceGet();
-		testLinkedListSequenceGetFirst();
-		testLinkedListSequenceGetLast();
-		testLinkedListSequencePrepend();
-		testLinkedListSequenceAppend();
-		testLinkedListSequenceGetSubsequence();
-		testLinkedListSequenceInsertAt();
-		testLinkedListSequenceRemoveAt();
-		//testLinkedListSequenceRemove();
-		//testLinkedListSequenceRemoveAll();
-		testLinkedListSequenceConcat();
-		std::cout << "________________ End testing LinkedListSequence _________________\n";
+
+void testLinkedListSequenceRemoveAll() {
+	const int SIZE = 5;
+	bool res = true;
+	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
+	Sequence<int>* seq = new LinkedListSequence <int>(testArr, SIZE);
+	seq->RemoveAll();
+
+	if (seq->GetLength() == 0) {
+		std::cout << "testLinkedListSequenceRemoveAll passed\n";
+	}
+	else {
+		std::cout << "testLinkedListSequenceRemoveAll failed\n";
+	}
+}
+
+void testLinkedListSequenceRemove() {
+	const int SIZE = 5;
+	const int item = 23;
+	bool res = true;
+	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
+	int testArr2[SIZE - 1] = { 11, 112, 153, 122222 };
+	try {
+		Sequence<int>* seq = new LinkedListSequence <int>(testArr, SIZE);
+		seq->Remove(item);
+		for (int i = 0; i < seq->GetLength(); i++) {
+			res = res && (seq->Get(i) == testArr2[i]);
+		}
+		if (res) {
+			std::cout << "testLinkedListSequenceRemove passed\n";
+		}
+		else {
+			std::cout << "testLinkedListSequenceRemove failed\n";
+		}
+	}
+	catch (Exception& exception) {
+		std::cout << "testLinkedListSequenceRemove failed\nException: " << exception.what() << "\n";
 	}
 
+}
 
-	int main(){
-		testDinArr();
-		testArraySequence();
-		testLinkedList();
-		testLinkedListSequence();
-
+void testLinkedListSequenceCopy() {
+	const int SIZE = 5;
+	const int START = 2;
+	const int END = 4;
+	bool res = true;
+	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
+	try {
+		LinkedListSequence<int>* seq = new LinkedListSequence <int>(testArr, SIZE);
+		Sequence<int>* seq2 = new LinkedListSequence <int>(*seq);
+		for (int i = 0; i < END - START + 1; i++) {
+			res = res && (seq->Get(i) == testArr[i + START]);
+		}
+		if (res) {
+			std::cout << "testLinkedListSequenceCopy passed\n";
+		}
+		else {
+			std::cout << "testLinkedListSequenceCopy failed\n";
+		}
 	}
-	// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-	// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
+	catch (Exception& exception) {
+		std::cout << "testLinkedListSequenceCopy failed\nException: " << exception.what() << "\n";
+	}
+}
 
-	// Советы по началу работы 
-	//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-	//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-	//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-	//   4. В окне "Список ошибок" можно просматривать ошибки.
-	//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-	//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.
+void testLinkedListSequence() {
+	std::cout << "________________ Start testing LinkedListSequence _______________\n";
+	testLinkedListSequenceGetLength();
+	testLinkedListSequenceCreateFromArray();
+	testLinkedListSequenceGet();
+	testLinkedListSequenceGetFirst();
+	testLinkedListSequenceGetLast();
+	testLinkedListSequencePrepend();
+	testLinkedListSequenceAppend();
+	testLinkedListSequenceGetSubsequence();
+	testLinkedListSequenceInsertAt();
+	testLinkedListSequenceRemoveAt();
+	testLinkedListSequenceRemove();
+	testLinkedListSequenceRemoveAll();
+	testLinkedListSequenceConcat();
+	std::cout << "________________ End testing LinkedListSequence _________________\n";
+}
+
+
+int main() {
+	testDinArr();
+	testArraySequence();
+	testLinkedList();
+	testLinkedListSequence();
+
+}
+// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
+// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
+
+// Советы по началу работы 
+//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
+//   2. В окне Team Explorer можно подключиться к системе управления версиями.
+//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
+//   4. В окне "Список ошибок" можно просматривать ошибки.
+//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
+//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.

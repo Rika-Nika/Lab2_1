@@ -17,13 +17,11 @@ public:
 		this->items = new LinkedList<T>();
 		this->count = 0;
 	};
-
+	//Копирующий конструктор
 	LinkedListSequence(const LinkedListSequence<T>& list) {
 
-		this->items = list.GetSubList(0, list.GetSize() - 1);
-		this->count = 0;
+//		this = (LinkedListSequence<int>)*list.GetSubsequence(0, list.GetLength() - 1);
 	};
-
 
 	LinkedListSequence(T* items, int count) {
 
@@ -43,6 +41,8 @@ public:
 	T Get(const int i)const override {
 		return this->items->GetNth(i);
 	};
+
+
 	Sequence<T>* GetSubsequence(const int start, const int end) const override {
 		LinkedListSequence<T> * sq = new LinkedListSequence<T>();
 		sq->count = end - start;
@@ -75,11 +75,13 @@ public:
 
 	};
 	// Удаляет первое вхождение value
-	void Remove(T value) {}; 
+	void Remove(T value) {
+		this->items->Remove(value);
+		this->count--;
+	};
 	void RemoveAll() {
-		//this->items-> GetHead () = NULL;
-		//this->items->GetTail() = NULL;
-		//this->size = 0;
+		this->items->RemoveAll();
+		this->count=0;
 	};
 
 	Sequence<T>* Concat(Sequence<T>* other) {
