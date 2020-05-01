@@ -7,6 +7,10 @@
 #include "Exception.h"
 #include "LinkedList.hpp"
 #include "LinkedListSequence.hpp"
+#include "Queue.hpp"
+//#include "QueueArray.hpp"
+#include "QueueLinkedList.hpp"
+#include "Laba2_1.h"
 
 
 void testDinArrGet() {
@@ -25,7 +29,7 @@ void testDinArrGet() {
 			std::cout << "testDinArrGet passed\n";
 		}
 		else {
-			std::cout << "testDinArrGet failed\n";
+			std::cout << "testDinArrGet FAILED\n";
 		}
 	}
 
@@ -38,7 +42,7 @@ void testDinArrGetSize() {
 		std::cout << "testDinArrGetSize passed\n";
 	}
 	else {
-		std::cout << "testDinArrGetSize failed\n";
+		std::cout << "testDinArrGetSize FAILED\n";
 	}
 }
 
@@ -55,11 +59,11 @@ void testDinArrCreateFromArray() {
 			std::cout << "testDinArrCreateFromArray passed\n";
 		}
 		else {
-			std::cout << "testDinArrCreateFromArray failed\n";
+			std::cout << "testDinArrCreateFromArray FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testDinArrCreateFromArray failed\nException: " << exception.what() << "\n";
+		std::cout << "testDinArrCreateFromArray FAILED\nException: " << exception.what() << "\n";
 	}
 
 }
@@ -74,11 +78,11 @@ void testDinArrCreateFromDinArr() {
 			std::cout << "testDinArrCreateFromDinArr passed\n";
 		}
 		else {
-			std::cout << "testDinArrCreateFromDinArr failed\n";
+			std::cout << "testDinArrCreateFromDinArr FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testDinArrCreateFromDinArr failed\nException: " << exception.what() << "\n";
+		std::cout << "testDinArrCreateFromDinArr FAILED\nException: " << exception.what() << "\n";
 	}
 }
 void testDinArrResize() {
@@ -98,18 +102,18 @@ void testDinArrResize() {
 			std::cout << "testDinArrResize to large passed\n";
 		}
 		else {
-			std::cout << "testDinArrResize to large failed\n";
+			std::cout << "testDinArrResize to large FAILED\n";
 		}
 		da->Resize(SIZE2);
 		if (da->Equals(*da2)) {
 			std::cout << "testDinArrResize to small passed\n";
 		}
 		else {
-			std::cout << "testDinArrResize to small failed\n";
+			std::cout << "testDinArrResize to small FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testDinArrResize failed\nexception\nException: " << exception.what() << "\n";
+		std::cout << "testDinArrResize FAILED\nexception\nException: " << exception.what() << "\n";
 	}
 }
 
@@ -129,32 +133,32 @@ void testArraySequenceCreateFromArray() {
 	bool res = true;
 	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
 	try {
-		Sequence<int>* seq2 = new ArraySequence<int>(testArr, SIZE);
+		Sequence<int>* seq = new ArraySequence<int>(testArr, SIZE);
 		for (int i = 0; i < SIZE; i++) {
-			res = res && (testArr[i] == seq2->Get(i));
+			res = res && (testArr[i] == seq->Get(i));
 		}
 		if (res) {
 			std::cout << "testArraySequenceCreateFromArray passed\n";
 		}
 		else {
-			std::cout << "testArraySequenceCreateFromArray failed\n";
+			std::cout << "testArraySequenceCreateFromArray FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testArraySequenceCreateFromArray failed\nException: " << exception.what() << "\n";
+		std::cout << "testArraySequenceCreateFromArray FAILED\nException: " << exception.what() << "\n";
 	}
 }
 
 void testArraySequenceGetLength() {
 	const int SIZE = 5;
 	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
-	Sequence<int>* seq = new ArraySequence<int>(testArr,SIZE);
+	Sequence<int>* seq = new ArraySequence<int>(testArr, SIZE);
 	int v = seq->GetLength();
 	if (v == 5) {
 		std::cout << "testArraySequenceGetLength passed\n";
 	}
 	else {
-		std::cout << "testArraySequenceGetLength failed\n";
+		std::cout << "testArraySequenceGetLength FAILED\n";
 	}
 }
 
@@ -174,7 +178,7 @@ void testArraySequenceGet() {
 			std::cout << "testArraySequenceGet passed\n";
 		}
 		else {
-			std::cout << "testArraySequenceGet failed\n";
+			std::cout << "testArraySequenceGet FAILED\n";
 		}
 	}
 
@@ -182,20 +186,20 @@ void testArraySequenceGet() {
 void testArraySequenceGetFirst() {
 	const int SIZE = 5;
 	bool res = true;
-	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
+	char testArr[SIZE] = { 'sf', 'se','sa', 'sj', 'sc' };
 	int v;
 	try {
-		Sequence<int>* seq = new ArraySequence<int>(testArr, SIZE);
+		Sequence<char>* seq = new ArraySequence<char>(testArr, SIZE);
 		v = seq->GetFirst();
 		if (v == testArr[0]) {
 			std::cout << "testArraySequenceGetFirst passed\n";
 		}
 		else {
-			std::cout << "testArraySequenceGetFirst failed\n";
+			std::cout << "testArraySequenceGetFirst FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testArraySequenceGetFirst failed\nException: " << exception.what() << "\n";
+		std::cout << "testArraySequenceGetFirst FAILED\nException: " << exception.what() << "\n";
 	}
 }
 void testArraySequenceGetLast() {
@@ -210,11 +214,11 @@ void testArraySequenceGetLast() {
 			std::cout << "testArraySequenceGetLast passed\n";
 		}
 		else {
-			std::cout << "testArraySequenceGetLast failed\n";
+			std::cout << "testArraySequenceGetLast FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testArraySequenceGetLast failed\nException: " << exception.what() << "\n";
+		std::cout << "testArraySequenceGetLast FAILED\nException: " << exception.what() << "\n";
 	}
 }
 void testArraySequencePrepend() {
@@ -234,11 +238,11 @@ void testArraySequencePrepend() {
 			std::cout << "testArraySequencePrepend passed\n";
 		}
 		else {
-			std::cout << "testArraySequencePrepend failed\n";
+			std::cout << "testArraySequencePrepend FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testArraySequencePrepend failed\nException: " << exception.what() << "\n";
+		std::cout << "testArraySequencePrepend FAILED\nException: " << exception.what() << "\n";
 	}
 }
 
@@ -259,11 +263,11 @@ void testArraySequenceAppend() {
 			std::cout << "testArraySequenceAppend passed\n";
 		}
 		else {
-			std::cout << "testArraySequenceAppend failed\n";
+			std::cout << "testArraySequenceAppend FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testArraySequenceAppend failed\nException: " << exception.what() << "\n";
+		std::cout << "testArraySequenceAppend FAILED\nException: " << exception.what() << "\n";
 	}
 }
 
@@ -283,11 +287,11 @@ void testArraySequenceInsertAt() {
 			std::cout << "testArraySequenceInsertAt passed\n";
 		}
 		else {
-			std::cout << "testArraySequenceInsertAt failed\n";
+			std::cout << "testArraySequenceInsertAt FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testArraySequenceInsertAt failed\nException: " << exception.what() << "\n";
+		std::cout << "testArraySequenceInsertAt FAILED\nException: " << exception.what() << "\n";
 	}
 }
 
@@ -307,11 +311,11 @@ void testArraySequenceRemoveAt() {
 			std::cout << "testArraySequenceRemoveAt passed\n";
 		}
 		else {
-			std::cout << "testArraySequenceRemoveAt failed\n";
+			std::cout << "testArraySequenceRemoveAt FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testArraySequenceRemoveAt failed\nException: " << exception.what() << "\n";
+		std::cout << "testArraySequenceRemoveAt FAILED\nException: " << exception.what() << "\n";
 	}
 }
 
@@ -331,11 +335,11 @@ void testArraySequenceRemove() {
 			std::cout << "testArraySequenceRemove passed\n";
 		}
 		else {
-			std::cout << "testArraySequenceRemove failed\n";
+			std::cout << "testArraySequenceRemove FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testArraySequenceRemove failed\nException: " << exception.what() << "\n";
+		std::cout << "testArraySequenceRemove FAILED\nException: " << exception.what() << "\n";
 	}
 }
 void testArraySequenceRemoveAll() {
@@ -349,7 +353,7 @@ void testArraySequenceRemoveAll() {
 		std::cout << "testArraySequenceRemoveAll passed\n";
 	}
 	else {
-		std::cout << "testArraySequenceRemoveAll failed\n";
+		std::cout << "testArraySequenceRemoveAll FAILED\n";
 	}
 }
 
@@ -373,7 +377,7 @@ void testArraySequenceConcat() {
 		if (res) std::cout << "testArraySequenceConcat passed\n";
 	}
 	else {
-		std::cout << "testArraySequenceConcat failed\n";
+		std::cout << "testArraySequenceConcat FAILED\n";
 	}
 }
 
@@ -393,37 +397,33 @@ void testArraySequenceGetSubsequence() {
 			std::cout << "testArraySequenceGetSubsequence passed\n";
 		}
 		else {
-			std::cout << "testArraySequenceGetSubsequence failed\n";
+			std::cout << "testArraySequenceGetSubsequence FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testArraySequenceGetSubsequence failed\nException: " << exception.what() << "\n";
+		std::cout << "testArraySequenceGetSubsequence FAILED\nException: " << exception.what() << "\n";
 	}
 }
 
-
-
-void testArraySequenceCopy() {
+void testArraySequenceCreateCopy() {
 	const int SIZE = 5;
-	const int START = 2;
-	const int END = 4;
 	bool res = true;
 	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
 	try {
 		ArraySequence<int>* seq = new ArraySequence <int>(testArr, SIZE);
 		Sequence<int>* seq2 = new ArraySequence <int>(*seq);
-		for (int i = 0; i < END - START + 1; i++) {
-			res = res && (seq->Get(i) == testArr[i + START]);
+		for (int i = 0; i < SIZE; i++) {
+			res = res && (seq->Get(i) == testArr[i]);
 		}
 		if (res) {
-			std::cout << "testArraySequenceCopy passed\n";
+			std::cout << "testArraySequenceCreateCopy passed\n";
 		}
 		else {
-			std::cout << "testArraySequenceCopy failed\n";
+			std::cout << "testArraySequenceCreateCopy FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testArraySequenceCopy failed\nException: " << exception.what() << "\n";
+		std::cout << "testArraySequenceCreateCopy FAILED\nException: " << exception.what() << "\n";
 	}
 }
 
@@ -442,15 +442,13 @@ void testArraySequence() {
 	testArraySequenceRemove();
 	testArraySequenceRemoveAll();
 	testArraySequenceConcat();
-	testArraySequenceCopy();
+	testArraySequenceCreateCopy();
 	std::cout << "________________ End testing ArraySequence _________________\n";
 }
 void testLinkedListCreate() {
 	LinkedList<std::string>* ls = new LinkedList<std::string>();
-	int n = 5;
-	for (int i = 0; i < n; i++) {
-		ls->add_node(std::to_string(i + 1.1) + " aaaaaaaaaaaaA");
-	}
+	ls->add_node("List Created");
+   
 	ls->printList();
 };
 
@@ -466,13 +464,13 @@ void testLinkedListGetFirst() {
 		std::cout << "testLinkedListGetFirst passed\n";
 	}
 	else {
-		std::cout << "testLinkedListGetFirst failed\n";
+		std::cout << "testLinkedListGetFirst FAILED\n";
 	}
 	LinkedList <int>* empty = new LinkedList <int>();
 	try
 	{
 		int f = empty->GetFirst();
-		std::cout << "testLinkedListGetFirst Exeption failed\n";
+		std::cout << "testLinkedListGetFirst Exeption FAILED\n";
 	}
 	catch (Exception& exception)
 	{
@@ -491,11 +489,11 @@ void testLinkedListCopy() {
 			std::cout << "testLinkedListCopy passed\n";
 		}
 		else {
-			std::cout << "testLinkedListCopy failed\n";
+			std::cout << "testLinkedListCopy FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testLinkedListCopy failed\nException: " << exception.what() << "\n";
+		std::cout << "testLinkedListCopy FAILED\nException: " << exception.what() << "\n";
 	}
 }
 
@@ -511,13 +509,13 @@ void testLinkedListGetLast() {
 		std::cout << "testLinkedListGetLast passed\n";
 	}
 	else {
-		std::cout << "testLinkedListGetLast failed\n";
+		std::cout << "testLinkedListGetLast FAILED\n";
 	}
 	LinkedList <int>* empty = new LinkedList <int>();
 	try
 	{
 		int l = empty->GetLast();
-		std::cout << "testLinkedListGetLast Exeption failed\n";
+		std::cout << "testLinkedListGetLast Exeption FAILED\n";
 	}
 	catch (Exception& exception)
 	{
@@ -537,7 +535,7 @@ void testLinkedListGetSize() {
 		std::cout << "testLinkedListGetSize passed\n";
 	}
 	else {
-		std::cout << "testLinkedListGetSize failed\n";
+		std::cout << "testLinkedListGetSize FAILED\n";
 	}
 };
 
@@ -553,13 +551,13 @@ void testLinkedListGetNth()
 		std::cout << "testLinkedListGetNth passed\n";
 	}
 	else {
-		std::cout << "testLinkedListGetNth failed\n";
+		std::cout << "testLinkedListGetNth FAILED\n";
 	}
 	LinkedList <int>* empty = new LinkedList <int>();
 	try
 	{
 		int a = empty->GetNth(10);
-		std::cout << "testLinkedListGetNth Exeption failed\n";
+		std::cout << "testLinkedListGetNth Exeption FAILED\n";
 	}
 	catch (Exception& exception)
 	{
@@ -587,7 +585,7 @@ void testLinkedListAppend()
 		std::cout << "testLinkedListAppend passed\n";
 	}
 	else {
-		std::cout << "testLinkedListAppend failed\n";
+		std::cout << "testLinkedListAppend FAILED\n";
 	}
 };
 
@@ -612,7 +610,7 @@ void testLinkedListPrepend()
 		std::cout << "testLinkedListPrepend passed\n";
 	}
 	else {
-		std::cout << "testLinkedListPrepend failed\n";
+		std::cout << "testLinkedListPrepend FAILED\n";
 	}
 };
 
@@ -636,11 +634,11 @@ void testLinkedListInsertAt()
 		std::cout << "testLinkedListInsertAt passed\n";
 	}
 	else {
-		std::cout << "testLinkedListInsertAt failed\n";
+		std::cout << "testLinkedListInsertAt FAILED\n";
 	}
 	try {
 		ls->InsertAt(100, 100);
-		std::cout << "testLinkedListInsertAt Exeption failed\n";
+		std::cout << "testLinkedListInsertAt Exeption FAILED\n";
 	}
 	catch (Exception& exception)
 	{
@@ -669,11 +667,11 @@ void testLinkedListGetSubList()
 		std::cout << "testLinkedListGetSubList passed\n";
 	}
 	else {
-		std::cout << "testLinkedListGetSubList failed\n";
+		std::cout << "testLinkedListGetSubList FAILED\n";
 	}
 	try {
 		ls->GetSubList(-1, 5);
-		std::cout << "testLinkedListGetSubList Exeption failed\n";
+		std::cout << "testLinkedListGetSubList Exeption FAILED\n";
 	}
 	catch (Exception& exception)
 	{
@@ -712,7 +710,7 @@ void testLinkedListConcat()
 		std::cout << "testLinkedListConcat passed\n";
 	}
 	else {
-		std::cout << "testLinkedListConcat failed\n";
+		std::cout << "testLinkedListConcat FAILED\n";
 	}
 };
 
@@ -730,11 +728,11 @@ void testLinkedListCreateFromArray() {
 			std::cout << "testLinkedListCreateFromArray passed\n";
 		}
 		else {
-			std::cout << "testLinkedListCreateFromArray failed\n";
+			std::cout << "testLinkedListCreateFromArray FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testLinkedListCreateFromArray failed\nException: " << exception.what() << "\n";
+		std::cout << "testLinkedListCreateFromArray FAILED\nException: " << exception.what() << "\n";
 	}
 }
 void testLinkedListRemoveAt() {
@@ -753,11 +751,11 @@ void testLinkedListRemoveAt() {
 			std::cout << "testLinkedListRemoveAt passed\n";
 		}
 		else {
-			std::cout << "testLinkedListRemoveAt failed\n";
+			std::cout << "testLinkedListRemoveAt FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testLinkedListRemoveAt failed\nException: " << exception.what() << "\n";
+		std::cout << "testLinkedListRemoveAt FAILED\nException: " << exception.what() << "\n";
 	}
 }
 
@@ -772,7 +770,7 @@ void testLinkedListRemoveAll() {
 		std::cout << "testLinkedListRemoveAll passed\n";
 	}
 	else {
-		std::cout << "testLinkedListRemoveAll failed\n";
+		std::cout << "testLinkedListRemoveAll FAILED\n";
 	}
 }
 
@@ -792,11 +790,11 @@ void testLinkedListRemove() {
 			std::cout << "testLinkedListRemove passed\n";
 		}
 		else {
-			std::cout << "testLinkedListRemove failed\n";
+			std::cout << "testLinkedListRemove FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testLinkedListRemove failed\nException: " << exception.what() << "\n";
+		std::cout << "testLinkedListRemove FAILED\nException: " << exception.what() << "\n";
 	}
 }
 
@@ -834,7 +832,7 @@ void testLinkedListSequenceCreateFromArray() {
 		std::cout << "testLinkedListSequenceCreateFromArray passed\n";
 	}
 	else {
-		std::cout << "testLinkedListSequenceCreateFromArray failed\n";
+		std::cout << "testLinkedListSequenceCreateFromArray FAILED\n";
 	}
 
 };
@@ -849,7 +847,7 @@ void testLinkedListSequenceGetLength() {
 		std::cout << "testLinkedListSequenceGetLength passed\n";
 	}
 	else {
-		std::cout << "testLinkedListSequenceGetLength failed\n";
+		std::cout << "testLinkedListSequenceGetLength FAILED\n";
 	}
 
 };
@@ -866,11 +864,11 @@ void testLinkedListSequenceGetFirst() {
 			std::cout << "testLinkedListSequenceGetFirst passed\n";
 		}
 		else {
-			std::cout << "testLinkedListSequenceGetFirst failed\n";
+			std::cout << "testLinkedListSequenceGetFirst FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testLinkedListSequenceGetFirst failed\nException: " << exception.what() << "\n";
+		std::cout << "testLinkedListSequenceGetFirst FAILED\nException: " << exception.what() << "\n";
 	}
 }
 void testLinkedListSequenceGetLast() {
@@ -885,11 +883,11 @@ void testLinkedListSequenceGetLast() {
 			std::cout << "testLinkedListSequenceGetLast passed\n";
 		}
 		else {
-			std::cout << "testLinkedListSequenceGetLast failed\n";
+			std::cout << "testLinkedListSequenceGetLast FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testLinkedListSequenceGetLast failed\nException: " << exception.what() << "\n";
+		std::cout << "testLinkedListSequenceGetLast FAILED\nException: " << exception.what() << "\n";
 	}
 }
 
@@ -909,7 +907,7 @@ void testLinkedListSequenceGet() {
 			std::cout << "testLinkedListSequenceGet passed\n";
 		}
 		else {
-			std::cout << "testLinkedListSequenceGet failed\n";
+			std::cout << "testLinkedListSequenceGet FAILED\n";
 		}
 	}
 
@@ -932,11 +930,11 @@ void testLinkedListSequencePrepend() {
 			std::cout << "testLinkedListSequencePrepend passed\n";
 		}
 		else {
-			std::cout << "testLinkedListSequencePrepend failed\n";
+			std::cout << "testLinkedListSequencePrepend FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testLinkedListSequencePrepend failed\nException: " << exception.what() << "\n";
+		std::cout << "testLinkedListSequencePrepend FAILED\nException: " << exception.what() << "\n";
 	}
 
 
@@ -960,11 +958,11 @@ void testLinkedListSequenceAppend() {
 			std::cout << "testLinkedListSequenceAppend passed\n";
 		}
 		else {
-			std::cout << "testLinkedListSequenceAppend failed\n";
+			std::cout << "testLinkedListSequenceAppend FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testLinkedListSequenceAppend failed\nException: " << exception.what() << "\n";
+		std::cout << "testLinkedListSequenceAppend FAILED\nException: " << exception.what() << "\n";
 	}
 }
 
@@ -986,7 +984,7 @@ void testLinkedListSequenceConcat() {
 		if (res) std::cout << "testArraySequenceConcat passed\n";
 	}
 	else {
-		std::cout << "testArraySequenceConcat failed\n";
+		std::cout << "testArraySequenceConcat FAILED\n";
 	}
 }
 
@@ -1006,11 +1004,11 @@ void testLinkedListSequenceGetSubsequence() {
 			std::cout << "testLinkedListSequenceGetSubsequence passed\n";
 		}
 		else {
-			std::cout << "testLinkedListSequenceGetSubsequence failed\n";
+			std::cout << "testLinkedListSequenceGetSubsequence FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testLinkedListSequenceGetSubsequence failed\nException: " << exception.what() << "\n";
+		std::cout << "testLinkedListSequenceGetSubsequence FAILED\nException: " << exception.what() << "\n";
 	}
 }
 void testLinkedListSequenceInsertAt() {
@@ -1029,11 +1027,11 @@ void testLinkedListSequenceInsertAt() {
 			std::cout << "testLinkedListSequenceInsertAt passed\n";
 		}
 		else {
-			std::cout << "testLinkedListSequenceInsertAt failed\n";
+			std::cout << "testLinkedListSequenceInsertAt FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testLinkedListSequenceInsertAt failed\nException: " << exception.what() << "\n";
+		std::cout << "testLinkedListSequenceInsertAt FAILED\nException: " << exception.what() << "\n";
 	}
 
 
@@ -1055,11 +1053,11 @@ void testLinkedListSequenceRemoveAt() {
 			std::cout << "testLinkedListSequenceRemoveAt passed\n";
 		}
 		else {
-			std::cout << "testLinkedListSequenceRemoveAt failed\n";
+			std::cout << "testLinkedListSequenceRemoveAt FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testLinkedListSequenceRemoveAt failed\nException: " << exception.what() << "\n";
+		std::cout << "testLinkedListSequenceRemoveAt FAILED\nException: " << exception.what() << "\n";
 	}
 }
 
@@ -1074,7 +1072,7 @@ void testLinkedListSequenceRemoveAll() {
 		std::cout << "testLinkedListSequenceRemoveAll passed\n";
 	}
 	else {
-		std::cout << "testLinkedListSequenceRemoveAll failed\n";
+		std::cout << "testLinkedListSequenceRemoveAll FAILED\n";
 	}
 }
 
@@ -1094,36 +1092,34 @@ void testLinkedListSequenceRemove() {
 			std::cout << "testLinkedListSequenceRemove passed\n";
 		}
 		else {
-			std::cout << "testLinkedListSequenceRemove failed\n";
+			std::cout << "testLinkedListSequenceRemove FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testLinkedListSequenceRemove failed\nException: " << exception.what() << "\n";
+		std::cout << "testLinkedListSequenceRemove FAILED\nException: " << exception.what() << "\n";
 	}
 
 }
 
-void testLinkedListSequenceCopy() {
+void testLinkedListSequenceCreateCopy() {
 	const int SIZE = 5;
-	const int START = 2;
-	const int END = 4;
 	bool res = true;
 	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
 	try {
 		LinkedListSequence<int>* seq = new LinkedListSequence <int>(testArr, SIZE);
 		Sequence<int>* seq2 = new LinkedListSequence <int>(*seq);
-		for (int i = 0; i < END - START + 1; i++) {
-			res = res && (seq->Get(i) == testArr[i + START]);
+		for (int i = 0; i < SIZE; i++) {
+			res = res && (seq->Get(i) == testArr[i]);
 		}
 		if (res) {
-			std::cout << "testLinkedListSequenceCopy passed\n";
+			std::cout << "testLinkedListSequenceCreateCopy passed\n";
 		}
 		else {
-			std::cout << "testLinkedListSequenceCopy failed\n";
+			std::cout << "testLinkedListSequenceCreateCopy FAILED\n";
 		}
 	}
 	catch (Exception& exception) {
-		std::cout << "testLinkedListSequenceCopy failed\nException: " << exception.what() << "\n";
+		std::cout << "testLinkedListSequenceCreateCopy FAILED\nException: " << exception.what() << "\n";
 	}
 }
 
@@ -1142,16 +1138,108 @@ void testLinkedListSequence() {
 	testLinkedListSequenceRemove();
 	testLinkedListSequenceRemoveAll();
 	testLinkedListSequenceConcat();
+	testLinkedListSequenceCreateCopy();
 	std::cout << "________________ End testing LinkedListSequence _________________\n";
 }
 
+void testQueueGetSize() {
+	const int SIZE = 5;
+	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
+	Queue<int>* que = new Queue <int>(testArr, SIZE);
+	if (que->GetSize() == SIZE and !que->IsEmpty()) {
+		std::cout << "testQueueGetSize passed\n";
+	}
+	else {
+		std::cout << "testQueueGetSize FAILED\n";
+	}
+};
+void testQueueDequeue() {
+	const int SIZE = 5;
+	bool rez = true;
+	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
+	int testArr2[SIZE - 1] = { 112, 23, 153, 122222 };
+	try {
+		Queue<int>* que = new Queue <int>(testArr, SIZE);
+		if (que->Dequeue() == testArr[0]) {
+			for (int i = 0; i < SIZE - 1; i++) {
+				rez = rez && que->Peek(i) == testArr2[i];
+				if (!rez) {
+					std::cout << "testQueueDequeue FAILED\n";
+					break;
+				}
+			}
+			std::cout << "testQueueDequeue passed\n";
+		}
+		else {
+			std::cout << "testQueueDequeue FAILED\n";
+		}
+	}
+	catch (Exception& exception) {
+		std::cout << "testQueueDequeue FAILED\nException: " << exception.what() << "\n";
+	}
+}
+void testQueueIsEmpty() {
+	Queue<int>* que = new Queue <int>();
+	if (que->IsEmpty()) {
+		std::cout << "testQueueIsEmpty passed\n";
+	}
+	else {
+		std::cout << "testQueueIsEmpty FAILED\n";
+	}
+}
+void testQueuePeek() {
+	const int SIZE = 5;
+	bool rez = true;
+	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
+	try {
+		Queue<int>* que = new Queue <int>(testArr, SIZE);
+		for (int i = 0; i < SIZE - 1; i++) {
+			rez = rez && que->Peek(i) == testArr[i];
+			if (!rez) {
+				std::cout << "testQueuePeek FAILED\n";
+				break;
+			}
+		}
+		std::cout << "testQueuePeek passed\n";
+	}
+	catch (Exception& exception) {
+		std::cout << "testQueuePeek FAILED\nException: " << exception.what() << "\n";
+	}
+}
+void testQueueEnqueue() {
+	const int SIZE = 5;
+	bool rez = true;
+	int testArr[SIZE] = { 11, 112, 23, 153, 122222 };
+	int addValue = 777;
+	int testArr2[SIZE + 1] = { 11, 112, 23, 153, 122222, addValue };
+	Queue<int>* que = new Queue <int>(testArr, SIZE);
+	que->Enqueue(addValue);
+	for (int i = 0; i < SIZE + 1; i++) {
+		rez = rez && que->Peek(i) == testArr2[i];
+		if (!rez) {
+			std::cout << "testQueueEnqueue FAILED\n";
+			break;
+		}
+	}
+	std::cout << "testQueueEnqueue passed\n";
+};
+void testQueue() {
+	std::cout << "________________ Start testing testQueue _______________\n";
+	testQueueIsEmpty();
+	testQueueGetSize();
+	testQueuePeek();
+	testQueueEnqueue();
+	testQueueDequeue();
+
+	std::cout << "________________ End testing testQueue _________________\n";
+}
 
 int main() {
 	testDinArr();
-	testArraySequence();
 	testLinkedList();
+	testArraySequence();
 	testLinkedListSequence();
-
+	testQueue();
 }
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
 // Отладка программы: F5 или меню "Отладка" > "Запустить отладку"

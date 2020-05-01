@@ -6,12 +6,14 @@ class DynamicArray
 {
 private:
 	T* items;
+	bool * isSet;
 	int size;
 public:
 	//Копировать элементы из 	переданного массива
 	DynamicArray(T* items, int count) {
 		this -> items = new T[count];
 		this -> size = count;
+		this->isSet = new bool[size];
 		if (count < 0) {
 			throw Exception("Index out of range");
 		}
@@ -32,12 +34,14 @@ public:
 			throw Exception("Invalid index");
 		}
 		this->items = new T[size];
+		this->isSet = new bool[size];
 		this->size = size;
 	}
 	//Копирующий конструктор
 	DynamicArray(const DynamicArray<T>& array) {
 		int size = array.GetSize();
 		this->items = new T[size];
+		this->isSet = new bool[size];
 		this->size = size;
 
 		for (int i = 0; i < size; i++)
@@ -53,7 +57,9 @@ public:
 	T Get(const int index) const
 	{
 		if (index < 0 || index >= this->size)
-			throw Exception("Invalid index");
+			throw Exception("IndexOutOfRange");
+		if (this->isSet[index]!=true)
+			throw Exception("IndexOutOfRange: value is not set");
 		return this->items[index];
 	}
 
@@ -64,6 +70,7 @@ public:
 		if (index < 0 || index >= this->size)
 			throw Exception("IndexOutOfRange");
 		this->items[index] = value;
+		this->isSet[index] = true;
 	}
 	//Получить размер массива
 	int GetSize() const {
@@ -134,8 +141,8 @@ public:
 		return true;
 	}
 
-	T& operator[] (const int index) {
-		return this.Get(index);
+	T& operator[] (int index) {
+		return *this.Get(index);
 	};
 
 	void PrintItems(int i, int value) {

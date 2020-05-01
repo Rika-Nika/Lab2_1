@@ -356,6 +356,12 @@ public:
 		{
 			throw Exception("IndexOutOfRange");
 		}
+		if (index == 0) {
+			head= head->next;
+			this->size--;
+			return;
+		}
+
 		node* current = head;
 		node* tmp = NULL;
 		int count = 0;

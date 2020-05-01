@@ -71,7 +71,7 @@ public:
 	//начиная с 0.
 	Sequence<T>* GetSubsequence(const int start, const int end) const override
 	{
-		Sequence<int>* subSeq = new ArraySequence <int>();
+		Sequence<T>* subSeq = new ArraySequence <T>();
 		for (int i = start; i < end+1; i++) {
 			subSeq->Prepend(this->Get(i));
 		}
@@ -182,7 +182,7 @@ public:
 	{
 		int size1 = this->GetLength();
 		int size2 = other->GetLength();
-		Sequence<int>* seq = new ArraySequence <int>(size1 + size2);
+		Sequence<T>* seq = new ArraySequence <T>(size1 + size2);
 		for (int i = 0; i < size1; i++) {
 			seq->Prepend(this->Get(i));
 		}
